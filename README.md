@@ -1,1 +1,1 @@
-# hotelsearch-excercise
+# hotelsearchexcercise
