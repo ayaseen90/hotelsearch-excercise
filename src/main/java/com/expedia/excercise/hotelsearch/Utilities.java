@@ -92,7 +92,11 @@ public class Utilities {
 		
 		return defaultValue;
 	}
-	
+	/**
+	 * Loads a single configuration value from a properties file
+	 * The method receives a {@link Pair} where the first value is the config file path, and the second
+	 * is the key to be used
+	 */
 	public static String loadConfigFromPropertiesFile( Pair<String, String> propertiesFileAndKey) {
 		
 		if(propertiesFileAndKey == null) {

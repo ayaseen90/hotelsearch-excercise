@@ -21,7 +21,7 @@ public class SearchManager {
 	private static final Logger LOG = Logger.getLogger(SearchManager.class);
 	
 
-	private static volatile SearchManager instance;
+	private static SearchManager instance;
 	
 	public static SearchManager getInstance() {
 		if(instance == null) {

@@ -19,6 +19,7 @@ import javax.ws.rs.client.Client;
 /**
  * This is a wrapper class to JersyClient designed specifically to access Expedia
  * Exercise Restful API
+ * 
  * @author Anas
  *
  */
