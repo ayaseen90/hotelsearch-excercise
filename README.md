@@ -19,31 +19,34 @@ The project consists of a backend part (this project) and a front end part (hote
  
  Live Demo can be found at:
  https://hotelsearch-excercise.herokuapp.com/
-
+<h1>Project structure and Technologies</h1>
 This Web Application is deployed using an embedded Jetty container.
 The project consists of four main packages:
-control: contains Rest APIs which are used by the front-end project.
-json: for parsing and deserializing the returned JSON from the webservice
- model: POJOs used to store information from the returned objects from expedia webservice
- search: manages the http clients and the objects related to search requests as well as the validation part
+<ul>
+<li>control: contains Rest APIs which are used by the front-end project.</li>
+<li>json: for parsing and deserializing the returned JSON from the webservice</li>
+<li> model: POJOs used to store information from the returned objects from expedia webservice</li>
+ <li>search: manages the http clients and the objects related to search requests as well as the validation part</li>
+ </ul>
  
  
+ <h2> Known Limitations:</h2>
+
+ <ul>
+ <li>Search is only implemented to get Hotels,  Flights nor packages and activities are not implemented</li>
+ 
+ <li>Although error handling is managed well on the server side, it is not being handled on client side as a production ready release</li>
+ </ul>
  
  
- Known Limitations:
- 
- Search is only implemented to get Hotels,  Flights nor packages and activities are not implemented
- 
- Although error handling is managed well on the server side, it is not being handled on client side as a production ready release
- 
- The overall project was built using Java Technology as a backend side and Angular 4 as front end side.
+ The overall project was built using Java Technology as a back end side and Angular 4 as front end.
  
  I have over five years of experience mostly in developing Java web based applications, I picked Java as it provides solid Object Oriented model which assists in building reusable components.
  
  For front-end I started learning Angular few days ago and thought it would be a good practice to develop this project using this technology.
  
  
- API Assumptions:
+ <h2>API Assumptions:</h2>
  
  After testing the API I found that there are:
  three main parameters that need to be present for the API to function:
@@ -52,13 +55,14 @@ json: for parsing and deserializing the returned JSON from the webservice
  scenario (couldn't find any other valid value other than dealfinder)
  
  The ProductType parameter presents the four values that can be returned by the API:
- 1- Hotel 
- 2- Flight
- 3- Package (Flight + Hotel)
- 4- LXActivities (requires the destinationName parameter)
- 
+ <ol>
+ <li> Hotel </li>
+ <li> Flight</li>
+ <li> Package (Flight + Hotel)</li>
+ <li> LXActivities (requires the destinationName parameter)</li>
+ </ol>
  shared attributes in the above DealTypes are:
- OfferDateRange
- Destination
+ OfferDateRange,
+ Destination,
  Pricing Info
  
