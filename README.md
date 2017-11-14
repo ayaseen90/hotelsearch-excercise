@@ -29,6 +29,11 @@ The project consists of four main packages:
  <li>search: manages the http clients and the objects related to search requests as well as the validation part</li>
  </ul>
  
+ The overall project was built using Java Technology as a back end side and Angular 4 as front end.
+ 
+ I have over five years of experience mostly in developing Java web based applications, I picked Java as it provides solid Object Oriented model which assists in building reusable components.
+ 
+ For front-end I started learning Angular few days ago and thought it would be a good practice to develop this project using this technology.
  
  <h2> Known Limitations:</h2>
 
@@ -39,11 +44,6 @@ The project consists of four main packages:
  </ul>
  
  
- The overall project was built using Java Technology as a back end side and Angular 4 as front end.
- 
- I have over five years of experience mostly in developing Java web based applications, I picked Java as it provides solid Object Oriented model which assists in building reusable components.
- 
- For front-end I started learning Angular few days ago and thought it would be a good practice to develop this project using this technology.
  
  
  <h2>API Assumptions:</h2>
