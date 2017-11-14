@@ -8,8 +8,11 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 import org.apache.log4j.Logger;
 
+import com.expedia.excercise.hotelsearch.Utilities;
 import com.expedia.excercise.hotelsearch.search.ServiceException;
 import javax.ws.rs.client.Client;
 
@@ -32,10 +35,13 @@ public class SearchClient {
 	private static final Logger LOG = Logger.getLogger(SearchClient.class);
 
 	private Client client = ClientBuilder.newClient();
-	private static final Map<String, String> defaultParameters = new HashMap<String, String>() {
-		/**
-		 * 
-		 */
+	
+	
+	/*
+	 * MAP containing the default parameters which should be supplied for the API to function 
+	 */
+	private static final Map<String, String> DEFAULT_PARAMETERS = new HashMap<String, String>() {
+		
 		private static final long serialVersionUID = -8898507360282120963L;
 
 		{
@@ -45,14 +51,31 @@ public class SearchClient {
 			
 		}
 	};
-	
-	private static final String URL = "https://offersvc.expedia.com/offers/v2/getOffers";
+
+	/*
+	 * URL Used to access the rest webservice
+	 */
+	private static final String SERVICE_URL = loadURL();
+	/*
+	 * Default value of the URL in case it was not provided
+	 */
+	private static final String DEFAULT_URL = "https://offersvc.expedia.com/offers/v2/getOffers";
+
+
+	/**
+	 * Loads the Service URL and return it
+	 * @return the URL of the remote service
+	 */
+	private static String loadURL() {
+		Pair<String, String> propertiesFileAndKey = new ImmutablePair<String, String>("/config.properties", "expedia_url");
+		return Utilities.loadConfig("EXPEDIA_URL", propertiesFileAndKey, DEFAULT_URL);
+	}
 	
 	String executeSearch(Map<String, String> parameters) throws ServiceException {
-		parameters.putAll(defaultParameters);
+		parameters.putAll(DEFAULT_PARAMETERS);
 
 		
-		WebTarget webTarget = client.target(URL);
+		WebTarget webTarget = client.target(SERVICE_URL);
 			
 		for(Iterator<String> parametersIterator = parameters.keySet().iterator(); parametersIterator.hasNext();) {
 			String paramName = parametersIterator.next();

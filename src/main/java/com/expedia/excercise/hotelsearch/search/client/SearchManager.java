@@ -18,25 +18,55 @@ import com.expedia.excercise.hotelsearch.search.ServiceException;
  */
 public class SearchManager {
 	
-	private int minNumOfClients = 5;
-	private int maxNumOfClients = 50;
-	private int minWaitTimeForClient = 2;
-	private int maxWaitTimeForClient = 2;
-	
-	AtomicInteger numOfClients = new AtomicInteger(0);
-	
 	private static final Logger LOG = Logger.getLogger(SearchManager.class);
 	
+
+	private static volatile SearchManager instance;
+	
+	public static SearchManager getInstance() {
+		if(instance == null) {
+			synchronized (SearchManager.class) {
+				if(instance == null) {
+					instance = new SearchManager();
+				}
+			}
+		}
+		return instance;
+	}
+	
+
+	/*
+	 * Singleton implementation
+	 * initializes the Search manager and creates the minimum number of clients
+	 */
 	private SearchManager()  {
-		
 		
 		LOG.info("Initializing Search Manager");
 		for(int i =0; i< minNumOfClients; i++) {
-			createClientInQueue();
+			addNewClientToQueue();
 		}
 	}
 
-	private void createClientInQueue() {
+	/*
+	 * The below variables control the number of clients to be created in the environment
+	 * The min Number is used to preinitialize the clients and to add them to the pool
+	 */
+	private int minNumOfClients = 5;
+	private int maxNumOfClients = 50;
+	
+	/*
+	 * Time to wait for a client to become available
+	 */
+	private int minWaitTimeForClient = 2;
+	private int maxWaitTimeForClient = 2;
+	
+	/*
+	 * Tracker to the number of clients created
+	 */
+	private AtomicInteger numOfClients = new AtomicInteger(0);
+	
+
+	private void addNewClientToQueue() {
 		try {
 			queue.put(createClient());
 			LOG.debug("Client Created and added to the pool");
@@ -51,19 +81,6 @@ public class SearchManager {
 		return client;
 	}
 	
-	private static volatile SearchManager instance;
-	
-	public static SearchManager getInstance() {
-		if(instance == null) {
-			synchronized (SearchManager.class) {
-				if(instance == null) {
-					instance = new SearchManager();
-				}
-			}
-		}
-		return instance;
-	}
-	
 	private BlockingQueue<SearchClient> queue = new LinkedBlockingQueue<>();
 	
 	
@@ -76,6 +93,10 @@ public class SearchManager {
 		return client;
 	}
 	
+	/**
+	 * returns the client to the queue and increments the number of available clients created
+	 * @param client
+	 */
 	private void returnClient(SearchClient client) {
 		
 		if(client == null) {
@@ -86,9 +107,14 @@ public class SearchManager {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		numOfClients.incrementAndGet();
 	}
 	
+	/**
+	 * Returns an available {@link SearchClient}, if the queue us empty (all clients are being used), it retries polling from the queue
+	 * if no client is available and the max number of clients is reached an exception is thrown
+	 * @return
+	 * @throws ServiceException
+	 */
 	private SearchClient retrieveClientFromQueue() throws ServiceException {
 		SearchClient client = null;
 		try {

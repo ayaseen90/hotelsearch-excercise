@@ -1,7 +1,14 @@
 package com.expedia.excercise.hotelsearch;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Properties;
+
+import org.apache.commons.lang3.tuple.Pair;
+
+import com.expedia.excercise.hotelsearch.search.client.SearchManager;
 
 public class Utilities {
 	
@@ -50,6 +57,63 @@ public class Utilities {
 			return true;
 		}
 		return false;
+	}
+	
+	/**
+	 * Loads a config file from one of the following sources respectively:
+	 * 1- environment variable
+	 * 2- properties file/key
+	 * 3- default value supplied
+	 * @return
+	 */
+	public static String loadConfig(String environmentVarName, Pair<String, String> propertiesFileAndKey, String defaultValue) {
+		
+		/*
+		 * Load From Environment variable
+		 */
+		String value = null;
+		if(!isNullOrEmpty(environmentVarName)) {
+			value = System.getenv(environmentVarName);
+		}
+		
+		if(!isNullOrEmpty(value)) {
+			return value;
+		}
+		
+		/*
+		 * load from properties file
+		 */
+		
+		value = loadConfigFromPropertiesFile(propertiesFileAndKey);
+		
+		if(!isNullOrEmpty(value)) {
+			return value;
+		}
+		
+		return defaultValue;
+	}
+	
+	public static String loadConfigFromPropertiesFile( Pair<String, String> propertiesFileAndKey) {
+		
+		if(propertiesFileAndKey == null) {
+			return null;
+		}
+		String fileName = propertiesFileAndKey.getLeft();
+		String keyName = propertiesFileAndKey.getRight();
+		
+		Object propValue = null;
+		try {
+			InputStream configFileInputStream = SearchManager.class.getResourceAsStream(fileName);
+			Properties props = new Properties();
+			props.load(configFileInputStream);
+			propValue = props.get(keyName);
+		} catch (IOException e) {
+			//ignore
+		}
+		if(propValue != null) {
+			return propValue.toString();
+		}
+		return null;
 	}
 
 }
