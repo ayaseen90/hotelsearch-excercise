@@ -30,7 +30,7 @@ export class SearchComponent implements OnInit {
     this.search.dateTo = dayAfterTomorrow;
   }
 
-  onSelect(dateFrom: Date, dateTo: Date, city: string) {
+  onSelect(dateFrom: Date, dateTo: Date, city: string, minStarRating: number) {
     this.error = {isError: false, errorMessages: []};
     this.validateTwoDates(dateFrom, dateTo);
     this.validateRequiredFields(city);
@@ -43,6 +43,7 @@ export class SearchComponent implements OnInit {
     searchCriteria.dateFrom = dateFrom;
     searchCriteria.dateTo = dateTo;
     searchCriteria.destCity = city;
+    searchCriteria.minRating = minStarRating;
 
     this.validateTwoDates(dateFrom, dateTo);
 
@@ -50,6 +51,28 @@ export class SearchComponent implements OnInit {
     this.apiService.trigger();
 
     this.router.navigateByUrl('/deals');
+  }
+  onSelectHotels(dateFrom: Date, dateTo: Date, city: string, minStarRating: number) {
+    this.error = {isError: false, errorMessages: []};
+    this.validateTwoDates(dateFrom, dateTo);
+    this.validateRequiredFields(city);
+
+    if (this.error.isError) {
+     return;
+    }
+
+    const searchCriteria = new Search();
+    searchCriteria.dateFrom = dateFrom;
+    searchCriteria.dateTo = dateTo;
+    searchCriteria.destCity = city;
+    searchCriteria.minRating = minStarRating;
+
+    this.validateTwoDates(dateFrom, dateTo);
+
+    this.apiService.setSearchCriteria(searchCriteria);
+    this.apiService.trigger();
+
+    this.router.navigateByUrl('/hotels');
   }
 
 validateRequiredFields(str: string) {

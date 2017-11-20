@@ -4,6 +4,13 @@ import org.codehaus.jackson.map.annotate.JsonDeserialize;
 
 import com.expedia.excercise.hotelsearch.json.HoteDeserializer;
 
+/**
+ * This class is the business class for the Hotel Offer, it stores the information retrieved
+ * from the API by deserializing the JSon according to the provided Deserializer
+ * 
+ * @author Anas
+ *
+ */
 @JsonDeserialize(using = HoteDeserializer.class)
 public class HotelOffer extends Offer {
 	private static final String DEAL_TYPE_HOTEL = "Hotel";
@@ -16,6 +23,8 @@ public class HotelOffer extends Offer {
 	private String hotelName;
 	
 	private String hotelURL;
+	
+	private Double starRating;
 
 	public String getHotelName() {
 		return hotelName;
@@ -35,5 +44,13 @@ public class HotelOffer extends Offer {
 
 	public static String getDealTypeHotel() {
 		return DEAL_TYPE_HOTEL;
+	}
+
+	public Double getStarRating() {
+		return starRating;
+	}
+
+	public void setStarRating(Double starRating) {
+		this.starRating = starRating;
 	}
 }

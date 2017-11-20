@@ -31,6 +31,17 @@
 
 </td>
 </tr>
+<tr>
+<td>Minimum Rating: </td>
+<td><input name="num" 
+	type="number"
+	min="1"
+	step="0.5"
+	max="5"
+	onkeypress="return false"
+	title="MinRating"
+	[(ngModel)]="search.minRating"></td>
+</tr>
 </table>
 
 	<div *ngIf="(destCity.invalid && (destCity.dirty || destCity.touched)) || error.isError" class="alert alert-danger">
@@ -49,7 +60,7 @@
 	
 	</div>
 
-<button (click)="onSelect(search.dateFrom, search.dateTo, search.destCity)" style="width:50%" class="btn btn-primary btn-block">Search</button>
+<button (click)="onSelectHotels(search.dateFrom, search.dateTo, search.destCity, search.minRating)" style="width:50%" class="btn btn-primary btn-block">Search</button>
 
 
 </div>

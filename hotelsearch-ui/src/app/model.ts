@@ -21,12 +21,13 @@ export class Hotel implements Offer {
   description: string;
   dealType = 'Hotel';
   hotelURL = '';
+  hotelStarRating: number;
 }
 export class Search {
 dateFrom: Date;
 dateTo: Date;
 destCity: string;
-
+minRating: number;
 
   public isEmpty() {
     return this.dateFrom == null || this.dateTo == null || this.destCity === null;

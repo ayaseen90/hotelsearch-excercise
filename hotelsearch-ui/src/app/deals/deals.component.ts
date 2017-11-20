@@ -15,7 +15,7 @@ export class DealsComponent implements OnInit, OnDestroy {
   offers: Offer[];
 
 
-  constructor(private apiService: ApiService, private router: Router) { }
+  constructor(protected apiService: ApiService, protected router: Router) { }
 
    public retrieveOffers(): void {
    this.subscription = this.apiService.getHotels().subscribe(
@@ -24,7 +24,7 @@ export class DealsComponent implements OnInit, OnDestroy {
   }
 
 
-  private setOffers(offers: Offer[]) {
+  protected setOffers(offers: Offer[]) {
     this.offers = offers;
   }
 

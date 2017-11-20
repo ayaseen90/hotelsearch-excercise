@@ -9,12 +9,16 @@ import { AppRoutingModule } from './/app-routing.module';
 import { ApiService } from './api.service';
 import { DealsComponent } from './deals/deals.component';
 import { HttpClientModule } from '@angular/common/http';
+import { HotelsComponent } from './hotels/hotels.component';
+import { HotelRatingComponent } from './hotelrating/hotelrating.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SearchComponent,
-    DealsComponent
+    DealsComponent,
+    HotelsComponent,
+    HotelRatingComponent
   ],
   imports: [
     BrowserModule,

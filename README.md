@@ -8,7 +8,7 @@ The project consists of a backend part (this project) and a front end part (hote
  
  <ul>
  <li> JDK 1.8 or higher </li>
- <li> Maven </li>
+ <li> Maven 3.1 or higher</li>
  </ul>
  
  After downloading the maven project navigate to the directory of the project then run:

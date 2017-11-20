@@ -1,7 +1,6 @@
 package com.expedia.excercise.hotelsearch.search.searchmodel;
 
 import com.expedia.excercise.hotelsearch.model.FlightOffer;
-import com.expedia.excercise.hotelsearch.search.ServiceException;
 import com.expedia.excercise.hotelsearch.search.result.FlightSearchResult;
 import com.expedia.excercise.hotelsearch.search.result.SearchResult;
 

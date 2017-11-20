@@ -75,11 +75,13 @@ public class OffersService {
     public List<HotelOffer> getHotelOffers(@QueryParam(value = ServiceConstants.PARAM_NAME_MIN_TRIP_START_DATE_STR) String from,
     		@QueryParam(value = ServiceConstants.PARAM_NAME_MAX_TRIP_END_DATE_STR) String to,
     		@QueryParam(value = ServiceConstants.PARAM_NAME_DESTINATION_NAME_STR) String destination,
+    		@QueryParam(value = ServiceConstants.PARAM_NAME_HOTEL_MIN_STAR_RATING_STR) Double minStarRating,
     		@Context UriInfo uriInfo, String content) {
     	HotelSearch hotelSearch = new HotelSearch();
     	hotelSearch.addDestinationName(destination);
     	hotelSearch.addMinTripStartDate(from);
     	hotelSearch.addMaxTripEndDate(to);
+    	hotelSearch.addMinStarRating(minStarRating);
     	try {
     		SearchResult<HotelOffer> result = hotelSearch.execute();
     		

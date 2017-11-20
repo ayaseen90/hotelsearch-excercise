@@ -15,6 +15,7 @@ public class HoteDeserializer extends OfferDeserializer<HotelOffer> {
 	private static final String[] IMAGE_PATH = {"hotelInfo", "hotelImageUrl"};
 	private static final String[] PRICE_PATH = {"hotelPricingInfo", "totalPriceValue"};
 	private static final String[] HOTEL_NAME_PATH = new String[] {"hotelInfo", "hotelName"};
+	private static final String[] STAR_RATING_PATH = new String[] {"hotelInfo", "hotelStarRating"};
 	
 	private static final String[] HOTEL_SITE_URL_PATH = {"hotelUrls", "hotelInfositeUrl"};
 	
@@ -37,7 +38,16 @@ public class HoteDeserializer extends OfferDeserializer<HotelOffer> {
 		}
 		
 		extractHotelURL(hotelOfferRootNode, offer);
+		extractHotelStarRating(hotelOfferRootNode, offer);
 		return offer;
+	}
+
+	private void extractHotelStarRating(JsonNode hotelOfferRootNode, HotelOffer offer) {
+
+		JsonNode hotelRatingNode = applyPath(STAR_RATING_PATH, hotelOfferRootNode);
+		if(hotelRatingNode != null) {
+			offer.setStarRating(hotelRatingNode.asDouble());
+		}
 	}
 
 	private void extractHotelURL(JsonNode hotelOfferRootNode, HotelOffer offer) {

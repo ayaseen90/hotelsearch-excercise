@@ -9,6 +9,7 @@ import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import 'rxjs/add/operator/map';
 import { environment } from '../environments/environment';
+import { isUndefined } from 'util';
 
 @Injectable()
 export class ApiService {
@@ -26,15 +27,31 @@ export class ApiService {
     if (this.searchCriteria === undefined || this.searchCriteria == null || this.searchCriteria.isEmpty()) {
        subUrl = '/allhotels';
     } else {
-      params =  params.append('destinationName', this.searchCriteria.destCity);
-      params = params.append('minTripStartDate', formatDate(this.searchCriteria.dateFrom));
-      params = params.append('maxTripEndDate', formatDate(this.searchCriteria.dateTo));
+      params = this.appendRequiredAttributes(params);
+      params = this.appendOptionalAttributes(params);
     }
 
     const deal$ = this.http
       .get(this.baseUrl + subUrl, {headers: this.getHeaders(), params: params})
       ;
     return deal$.map(mapHotels);
+  }
+  
+    private appendOptionalAttributes(params: HttpParams) : HttpParams {
+
+      if(! isUndefined(this.searchCriteria.minRating)) {
+        
+     params =  params.append('minStarRating', this.searchCriteria.minRating + '');
+      }
+      return params;
+    }  
+
+  private appendRequiredAttributes(params: HttpParams) : HttpParams {
+    
+    params =  params.append('destinationName', this.searchCriteria.destCity);
+    params = params.append('minTripStartDate', formatDate(this.searchCriteria.dateFrom));
+    params = params.append('maxTripEndDate', formatDate(this.searchCriteria.dateTo));
+    return params;
   }
 
   private getHeaders() {

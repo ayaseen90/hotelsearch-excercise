@@ -4,6 +4,7 @@ package com.expedia.excercise.hotelsearch.search.searchmodel;
 import com.expedia.excercise.hotelsearch.model.HotelOffer;
 import com.expedia.excercise.hotelsearch.search.result.HotelSearchResult;
 import com.expedia.excercise.hotelsearch.search.result.SearchResult;
+import com.expedia.excercise.hotelsearch.search.searchmodel.ServiceConstants.SearchParameters;
 
 public class HotelSearch extends OfferSearch<HotelOffer> {
 
@@ -22,6 +23,15 @@ public class HotelSearch extends OfferSearch<HotelOffer> {
 		
 		
 		return result;
+	}
+
+	public HotelSearch addMinStarRating(Double minStarRating) {
+		
+		if(minStarRating != null) {
+			addParameter(SearchParameters.PARAM_NAME_HOTEL_MIN_STAR_RATING, String.valueOf(minStarRating));			
+		}
+		return this;
+		
 	}
 	
 
